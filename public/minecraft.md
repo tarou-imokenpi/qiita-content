@@ -1,5 +1,5 @@
 ---
-title: minecraft
+title: minecraft プラグイン チュートリアル
 tags:
   - ''
 private: true
@@ -9,7 +9,7 @@ organization_url_name: null
 slide: false
 ignorePublish: true
 ---
-# mod チュートリアル
+# プラグイン チュートリアル
 
 
 ## プラグインの作成
