@@ -3,8 +3,8 @@ title: Fabric 1.20.6 Blockクラスのオーバーライド可能なメソッド
 tags:
   - minecraft
 private: true
-updated_at: ''
-id:
+updated_at: '2024-06-13T23:31:09+09:00'
+id: 7b9f8549afa4ca0f3d85
 organization_url_name: null
 slide: false
 ignorePublish: false
