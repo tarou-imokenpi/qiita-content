@@ -3,7 +3,7 @@ title: mc-mod
 tags:
   - minecraft
 private: true
-updated_at: '2024-06-13T23:00:36+09:00'
+updated_at: '2024-06-13T22:57:25+09:00'
 id: 24fccb367cc15cafc6eb
 organization_url_name: null
 slide: false
@@ -303,6 +303,9 @@ public class TechTreeHarvesterBlock extends Block {
 }
 
 ```
+onUseとか使えるメソッドはここにある
+
+
 
 ### world.isClient の意味
 world.isClient は World クラスのプロパティで、現在の環境がクライアント側かサーバー側かを示します。
