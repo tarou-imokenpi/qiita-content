@@ -9,6 +9,7 @@ organization_url_name: null
 slide: false
 ignorePublish: false
 ---
+1.20.6
 # アイテムの登録
 
 ```java
@@ -257,4 +258,101 @@ public class CustomItem extends Item {
     }
 }
 
+```
+
+# ブロックの登録
+公式ドキュメント: https://fabricmc.net/wiki/tutorial:blocks
+
+
+基本はアイテムの登録と同じですが、`Block`クラスを継承することに注意
+
+以下がオリジナルブロックのクラスです
+
+```java
+// TechTreeHarvesterBlock.java
+
+package com.technocraft_engineering;
+
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
+
+public class TechTreeHarvesterBlock extends Block {
+    public TechTreeHarvesterBlock(Settings settings) {
+        super(settings);
+    }
+
+
+    // ブロックを右クリックしたときの処理
+    // 1.20.5以降では以下ように書く
+    @Override
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (!world.isClient) {
+            //これはプレイヤーのチャットに表示されます
+            player.sendMessage(Text.literal("Hello, world!"), false);
+        }
+        return ActionResult.SUCCESS;
+    }
+
+}
+
+```
+
+### world.isClient の意味
+world.isClient は World クラスのプロパティで、現在の環境がクライアント側かサーバー側かを示します。
+
+* world.isClient が true の場合、そのコードはクライアント側で実行されています。
+* world.isClient が false の場合、そのコードはサーバー側で実行されています。
+
+## ブロックのレジストリ登録
+
+アイテムの追加とほとんど変わらず、`Registry.register`を使って登録します
+
+注意点: ItemとBlockの両方を登録する必要があります
+
+```java
+package com.technocraft_engineering;
+
+import static com.technocraft_engineering.util.Id.id;
+
+import net.fabricmc.api.ModInitializer;
+
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
+
+public class TechnoCraftEngineering implements ModInitializer {
+    //ブロックの追加
+    // 1.20.5以降の書き方
+    public static final Block TECH_TREE_HARVESTER_BLOCK = new TechTreeHarvesterBlock(Block.Settings.create().strength(4.0f).requiresTool());
+
+    private static final ItemGroup ITEM_GROUP = FabricItemGroup.builder()
+            .icon(() -> new ItemStack(TECH_TREE_HARVESTER_BLOCK))
+            .displayName(Text.translatable("itemGroup.technocraft_engineering.group_name"))
+            .entries((context, entries) -> {
+                entries.add(TECH_TREE_HARVESTER_BLOCK);
+            })
+            .build();
+
+    @Override
+    public void onInitialize() {
+        Registry.register(Registries.ITEM_GROUP, id("group_name"), ITEM_GROUP);
+
+        // ブロックの登録
+        Registry.register(Registries.BLOCK, id("tech_tree_harvester"), TECH_TREE_HARVESTER_BLOCK);
+        Registry.register(Registries.ITEM, id("tech_tree_harvester"), new BlockItem(TECH_TREE_HARVESTER_BLOCK, new Item.Settings()));
+    }
+}
 ```
