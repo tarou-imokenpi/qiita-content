@@ -3,7 +3,7 @@ title: Fabric for Minecraft 1.21 日本語訳
 tags:
   - minecraft
 private: true
-updated_at: '2024-06-13T13:57:08+09:00'
+updated_at: '2024-06-13T22:57:25+09:00'
 id: b6f933ab297828d677e3
 organization_url_name: null
 slide: false
