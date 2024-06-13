@@ -317,6 +317,8 @@ world.isClient は World クラスのプロパティで、現在の環境がク�
 注意点: ItemとBlockの両方を登録する必要があります
 
 ```java
+// TechnoCraftEngineering.java
+
 package com.technocraft_engineering;
 
 import static com.technocraft_engineering.util.Id.id;
